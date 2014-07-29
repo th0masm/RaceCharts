@@ -5,21 +5,21 @@ form.form-horizontal
         div.form-group
             label.col-md-4(for='charttitle') Chart Title
             div.col-md-6
-                input.form-control.input-md(ng-model='highchartsNG.title.text', id='charttitle', name='charttitle', type='text', placeholder='Chart Title', required='')
+                input.form-control.input-md(ng-model='highchartsNG.title.text', type='text', placeholder='Chart Title', required='')
         div.form-group
             label.col-md-4(for='chartsubtitle') Chart Subtitle
             div.col-md-6
-                input.form-control.input-md(ng-model='highchartsNG.subtitle.text', id='chartsubtitle', name='chartsubtitle', type='text', placeholder='Chart Subtitle', required='')
+                input.form-control.input-md(ng-model='highchartsNG.subtitle.text', type='text', placeholder='Chart Subtitle', required='')
 
         div.form-group
             label.col-md-4(for='rider') Rider
             div.col-md-6
-                input.form-control.input-md(ng-model='rider.name', id='rider', name='rider', type='text', placeholder='Rider Name', required='')>
+                input.form-control.input-md(ng-model='rider.name', type='text', placeholder='Rider Name', required='')>
 
         div.form-group
             label.col-md-4(for='times') Times
             div.col-md-4
-                textarea.form-control(ng-model='rider.times', id='times', name='times') 1'34.200
+                textarea.form-control(ng-model='rider.times', name='times', required='') 1'34.200
 
         div.form-group
             label.col-md-4(for='addbutton')

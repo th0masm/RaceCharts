@@ -2,87 +2,106 @@
 
 
 angular.module('racecharts.chart', ['highcharts-ng'])
-  .controller('ChartController', function($scope) {
+.controller('ChartController', function($scope) {
 
-    var tooltip = function() {
-      var time=this.y+'';
-      var timesplitted=time.split(".");
-      var mintemp = (timesplitted[0]/60)+'';
-      var minmod = parseInt(timesplitted[0])%60;
-      var min = mintemp.split(",");
-      if(minmod<10){
-        min = mintemp[0] +'\'0'+ minmod;
-        return 'Tour '+ (parseInt(this.x)+1) +': '+min+'.'+timesplitted[1];
-      } else {
-        min = mintemp[0] +'\''+ minmod;
-        return 'Tour '+ (parseInt(this.x)+1) +': '+min+'.'+timesplitted[1];
-      }
-    };
+  var tooltip = function() {
+    var time = this.y + '';
+    var timesplitted = time.split('.');
+    var mintemp = (timesplitted[0] / 60) + '';
+    var minmod = parseInt(timesplitted[0]) % 60;
+    var min = mintemp.split(',');
+    if (minmod < 10) {
+      min = mintemp[0] + '\'0' + minmod;
+      return 'Lap ' + (parseInt(this.x) + 1) + ': ' + min + '.' + timesplitted[1];
+    } else {
+      min = mintemp[0] + '\'' + minmod;
+      return 'Lap ' + (parseInt(this.x) + 1) + ': ' + min + '.' + timesplitted[1];
+    }
+  };
 
-    var labels = function() {
-      var time=this.value+'';
-      var timesplitted=time.split(".");
-      var mintemp = (timesplitted[0]/60)+'';
-      var minmod = parseInt(timesplitted[0])%60;
-      var min = mintemp.split(",");
-      if(minmod<10)
-        min = mintemp[0] +'\'0'+ minmod;
-      else
-        min = mintemp[0] +'\''+ minmod;
-      return min;
-    };
+  var labels = function() {
+    var time = this.value + '';
+    var timesplitted = time.split('.');
+    var mintemp = (timesplitted[0] / 60) + '';
+    var minmod = parseInt(timesplitted[0]) % 60;
+    var min = mintemp.split(',');
+    if (minmod < 10) {
+      min = mintemp[0] + '\'0' + minmod;
+    }
+    else {
+      min = mintemp[0] + '\'' + minmod;
+    }
+    return min;
+  };
 
-    $scope.addSeries = function() {
+  $scope.addSeries = function() {
 
-      var rnd = [];
+    if(!$scope.rider.name || !$scope.rider.times){
+      return;
+    }
 
-      var lines = $scope.rider.times.split('\n');
-      for(var i = 0;i < lines.length;i++){
-        var min = lines[i].split('\'')[0];
-        var sec = lines[i].split('\'')[1].split('.')[0];
-        var milli = lines[i].split('\'')[1].split('.')[1];
-        rnd.push(parseInt(min) * 60 + parseInt(sec) + (parseInt(milli) / 1000));
-      }
+    var rnd = [];
 
-      console.log(rnd);
+    var lines = $scope.rider.times.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var min = lines[i].split('\'')[0];
+      var sec = lines[i].split('\'')[1].split('.')[0];
+      var milli = lines[i].split('\'')[1].split('.')[1];
+      rnd.push(parseInt(min) * 60 + parseInt(sec) + (parseInt(milli) / 1000));
+    }
 
-      $scope.highchartsNG.series.push({
-        name: $scope.rider.name,
-        data: rnd
-      });
-    };
+    console.log(rnd);
 
-    $scope.highchartsNG = {
-      options: {
-        chart: {
-          type: 'line',
-          zoomType: 'x',
-          spacingRight: 20,
-          marginRight: 40,
-          marginBottom: 50
+    $scope.highchartsNG.series.push({
+      name: $scope.rider.name,
+      data: rnd
+    });
+  };
+
+  $scope.highchartsNG = {
+    options: {
+      chart: {
+        type: 'line',
+        zoomType: 'x',
+        spacingRight: 20,
+        marginRight: 40,
+        marginBottom: 50
+      },
+      yAxis: {
+        title: {
+          text: ''
         },
-        tooltip: tooltip,
-        labels: labels,
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'top',
-          x: -10,
-          y: 100,
-          borderWidth: 0
-        },
-        exporting: {
-          enabled: true
+        plotLines: [{
+          width: 1,
+          color: 'red'
+        }],
+        labels: {
+          formatter: labels
         }
       },
-      series: [],
-      title: {
-        text: 'Titre'
+      tooltip: {
+        formatter: tooltip
       },
-      subtitle: {
-        text: 'Analysis'
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -10,
+        y: 100,
+        borderWidth: 0
       },
+      exporting: {
+        enabled: true
+      }
+    },
+    series: [],
+    title: {
+      text: 'Title'
+    },
+    subtitle: {
+      text: 'Analysis'
+    },
 
-      loading: false
-    };
-  });
+    loading: false
+  };
+});
