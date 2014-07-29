@@ -1,0 +1,21 @@
+{
+  "name": "Angular/Express Skel",
+  "homepage": "th0masm.github.io",
+  "authors": [
+    "Th0masm"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "frontend/components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "angular": "1.2.5",
+    "angular-route": "~1.2.20",
+    "highcharts-ng": "~0.0.6",
+    "highcharts": "~4.0.3"
+  }
+}

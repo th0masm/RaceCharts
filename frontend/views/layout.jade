@@ -1,0 +1,38 @@
+html(ng-app="RaceCharts")
+    head
+        meta(charset='utf8')
+        base(href='/')
+        title Charts - OffBikes.com
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.css')
+        link(rel='stylesheet', href='/css/app.css')
+
+        script(src='/components/jquery/dist/jquery.min.js')
+        script(src='/components/bootstrap/dist/js/bootstrap.js')
+        script(src='/components/angular/angular.js')
+        script(src='/components/angular-route/angular-route.js')
+        script(src='/components/highcharts-ng/dist/highcharts-ng.js')
+        script(src='/components/highcharts/highcharts.js')
+        script(src='/components/highcharts/modules/exporting.js')
+
+    body
+        .navbar.navbar-default
+            .container
+                .navbar-header
+                    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand(href='#') Charts OffBikes
+                .navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        - var obj = { 'chart':'Home', 'about':'About' }
+                            - each val, key in obj
+                                - if (id == key)
+                                    li.active
+                                        a(href='#{key}') #{val}
+                                - else
+                                    li
+                                        a(href='#{key}') #{val}
+        block body
+        include footer
