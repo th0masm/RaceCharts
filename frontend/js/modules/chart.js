@@ -1,8 +1,7 @@
 'use strict';
 
-
-angular.module('racecharts.chart', ['highcharts-ng'])
-.controller('ChartController', function($scope) {
+angular.module('racecharts.chart', ['highcharts-ng', 'racecharts.rider'])
+.controller('ChartController', function($scope, riderService) {
 
   var tooltip = function() {
     var time = this.y + '';
@@ -35,27 +34,24 @@ angular.module('racecharts.chart', ['highcharts-ng'])
   };
 
   $scope.addSeries = function() {
-
-    if(!$scope.rider.name || !$scope.rider.times){
+    $scope.error = false;
+    if (!$scope.rider.name || !$scope.rider.times) {
       return;
     }
 
-    var rnd = [];
+    if (riderService.setTimes($scope.rider.times)) {
+      $scope.highchartsNG.series.push({
+        name: $scope.rider.name,
+        data: riderService.getTimes()
+      });
 
-    var lines = $scope.rider.times.split('\n');
-    for (var i = 0; i < lines.length; i++) {
-      var min = lines[i].split('\'')[0];
-      var sec = lines[i].split('\'')[1].split('.')[0];
-      var milli = lines[i].split('\'')[1].split('.')[1];
-      rnd.push(parseInt(min) * 60 + parseInt(sec) + (parseInt(milli) / 1000));
+      $scope.rider.name = '';
+      $scope.rider.times = '';
     }
-
-    console.log(rnd);
-
-    $scope.highchartsNG.series.push({
-      name: $scope.rider.name,
-      data: rnd
-    });
+    else {
+      $scope.error = true;
+      $scope.errmsg = 'Wrong times format';
+    }
   };
 
   $scope.highchartsNG = {
@@ -100,8 +96,6 @@ angular.module('racecharts.chart', ['highcharts-ng'])
     },
     subtitle: {
       text: 'Analysis'
-    },
-
-    loading: false
+    }
   };
 });

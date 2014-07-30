@@ -1,28 +1,30 @@
 'use strict';
 
-// Declare app level module which depends on filters, and services
-
 angular.module('RaceCharts', [
   'ngRoute',
-  'myApp.controllers',
+  'racecharts.core',
   'racecharts.chart',
+  'racecharts.rider',
   'myApp.filters',
-  'myApp.services',
   'myApp.directives'
-]).
-config(function($routeProvider, $locationProvider) {
-  $routeProvider.
-    when('/chart', {
-      templateUrl: 'partials/chart',
-      controller: 'ChartController'
-    }).
-    when('/about', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
-    }).
-    otherwise({
-      redirectTo: '/chart'
-    });
+])
+  .config(function($routeProvider, $locationProvider) {
+    $routeProvider.
+      when('/chart', {
+        templateUrl: 'partials/chart',
+        controller: 'ChartController'
+      }).
+      when('/about', {
+        templateUrl: 'partials/about'
+      }).
+      when('/', {
+        templateUrl: 'partials/chart',
+        controller: 'ChartController'
+      }).
+      otherwise({
+        redirectTo: '/chart'
+      });
 
-  $locationProvider.html5Mode(true);
-});
+    $locationProvider.html5Mode(true);
+  })
+  .value('appname', 'Charts by Offbikes');

@@ -19,12 +19,16 @@ form.form-horizontal
         div.form-group
             label.col-md-4(for='times') Times
             div.col-md-4
-                textarea.form-control(ng-model='rider.times', name='times', required='') 1'34.200
+                textarea.form-control(ng-model='rider.times', name='times', required='')
 
         div.form-group
             label.col-md-4(for='addbutton')
             div.col-md-8
                 button.btn.btn-success(id='addbutton', name='addbutton', ng-click='addSeries()') +
                 button.btn.btn-default.pull-right(id='button2id', name='button2id', ng-click='exportPDF()') Export
+
+        div.form-group
+            div.col-md-8.col-md-offset-4
+                span.bg-warning(ng-show=('error')) {{errmsg}}
 
 highchart(id='chart1', config='highchartsNG')

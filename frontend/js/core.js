@@ -1,8 +1,6 @@
 'use strict';
 
-/* Controllers */
-
-angular.module('myApp.controllers', []).
+angular.module('racecharts.core', []).
   controller('AppCtrl', function($scope, $http, appname) {
     $http({
       method: 'GET',
@@ -14,9 +12,4 @@ angular.module('myApp.controllers', []).
       error(function(data, status, headers, config) {
         $scope.name = 'Error!';
       });
-
-  }).
-  controller('MyCtrl2', function($scope) {
-    // write Ctrl here
-
   });
