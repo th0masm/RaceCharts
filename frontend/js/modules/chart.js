@@ -63,6 +63,14 @@ angular.module('racecharts.chart', ['highcharts-ng', 'racecharts.rider'])
         marginRight: 40,
         marginBottom: 50
       },
+xAxis: {
+	tickInterval:1,
+	labels : {
+	formatter: function() {
+		return this.value+1;
+		}
+}
+},
       yAxis: {
         title: {
           text: ''
